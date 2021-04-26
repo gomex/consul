@@ -1,0 +1,27 @@
+graph TD
+
+    subgraph ClientAgent[Client Agent]
+        HTTPEndpoint
+        DNSEndpoint
+        xDSEndpoint
+    end
+
+    subgraph ServerAgent[Server Agent]
+        RPCEndpoint
+        Raft
+        FSM
+        StateStore
+    end
+
+    RPCEndpoint --> Raft
+    Raft --> FSM
+    FSM --> StateStore
+
+    RPCEndpoint --> StateStore
+    
+
+    Read --> HTTPEndpoint & DNSEndpoint & xDSEndpoint
+    Write --> RPCEndpoint
+
+    class Read,Write start
+    classDef start fill:transparent,stroke:transparent
