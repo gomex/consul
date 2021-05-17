@@ -23,6 +23,7 @@ func LoggerWithOutput(t TestingTB, output io.Writer) hclog.InterceptLogger {
 }
 
 var sendTestLogsToStdout = os.Getenv("NOLOGBUFFER") == "1"
+var bufferVerbose = os.Getenv("BUFFERVERBOSE") == "1"
 
 // NewLogBuffer returns an io.Writer which buffers all writes. When the test
 // ends, t.Failed is checked. If the test has failed or has been run in verbose
@@ -36,7 +37,7 @@ func NewLogBuffer(t TestingTB) io.Writer {
 	}
 	buf := &logBuffer{buf: new(bytes.Buffer)}
 	t.Cleanup(func() {
-		if t.Failed() || testing.Verbose() {
+		if t.Failed() || (!bufferVerbose && testing.Verbose()) {
 			buf.Lock()
 			defer buf.Unlock()
 			buf.buf.WriteTo(os.Stdout)
