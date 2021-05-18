@@ -1,0 +1,10 @@
+<div class="collapsible-notices">
+  <div class="notices">
+    {{yield}}
+  </div>
+{{#if hide}}
+  <button type="button" class="expand" {{on 'click' this.toggle}}>{{t "components.app.collapsible-notices.expand"}}</button>
+{{else}}
+  <button type="button" class="collapse" {{on 'click' this.toggle}}>{{t "components.app.collapsible-notices.collapse"}}</button>
+{{/if}}
+</div>
