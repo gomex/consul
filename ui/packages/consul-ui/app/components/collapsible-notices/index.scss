@@ -5,6 +5,9 @@
   grid-template-areas:
     "notices notices"
     ". toggle-button";
+  &.collapsed p {
+    display: none;
+  }
   .notices {
     grid-area: notices;
     :last-child {
