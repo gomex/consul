@@ -32,6 +32,7 @@ as |route|>
         {{/if}}
         {{#if topology.DefaultAllow}}
           <TopologyMetrics::Notice
+            data-test-notice='default-allow'
             @type="warning"
             @for="default-allow"
             @internal={{true}}

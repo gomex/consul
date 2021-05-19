@@ -1,4 +1,13 @@
-export default function(visitable, clickable, attribute, collection, text, intentions, tabs) {
+export default function(
+  visitable,
+  clickable,
+  attribute,
+  isPresent,
+  collection,
+  text,
+  intentions,
+  tabs
+) {
   const page = {
     visit: visitable('/:dc/services/:service'),
     externalSource: attribute('data-test-external-source', '[data-test-external-source]', {
@@ -25,6 +34,11 @@ export default function(visitable, clickable, attribute, collection, text, inten
       instance: clickable('a'),
     }),
     intentionList: intentions(),
+  };
+  page.tabs.topologyTab = {
+    defaultAllowNotice: {
+      see: isPresent('[data-test-notice="default-allow"]'),
+    },
   };
   page.tabs.upstreamsTab = {
     services: collection('.consul-upstream-list > ul > li:not(:first-child)', {
